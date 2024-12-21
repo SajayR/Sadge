@@ -3,9 +3,6 @@
     --text-secondary: #4a4a4a;
     --background: #f5f5f5;
     --accent: #3b82f6;
-    
-    /* Text color transitions */
-    --transition-timing: 1.7s var(--timing-fn);
 
     /* Background effect variables */
     --day: #fffdfa;
@@ -20,6 +17,20 @@
     --shadow: #1a1917;
     --bounce-light: #f5d7a6;
     --timing-fn: cubic-bezier(0.455, 0.190, 0.000, 0.985);
+
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --background: #f5f5f5;
+    --accent: #3b82f6;
+    
+    /* Font sizes */
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
 }
 
 body {
@@ -52,9 +63,9 @@ body.dark {
     --dark: var(--day);
     --shadow: #030307;
     --bounce-light: #1b293f;
-    --text-primary: #e1e1e1;
-    --text-secondary: #b4b4b4;
-    --accent: #60a5fa;
+    --text-primary: rgba(255, 255, 255, 0.9);
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --background: #0f131c;
 }
 
 /* Animation Keyframes */
@@ -176,6 +187,7 @@ body.dark {
     height: 1400px;
     filter: url(#wind);
     animation: billow 8s ease-in-out infinite;
+    background-image: url("./leaves.png");
 }
 
 #blinds {
@@ -235,24 +247,21 @@ body.dark {
 /* Typography */
 h1, h2, h3 {
     color: var(--text-primary);
-    transition: color var(--transition-timing);
 }
 
 .site-title {
     font-weight: 700;
     letter-spacing: -0.5px;
-    transition: color var(--transition-timing);
 }
 
 .sidebar-section h2 {
     color: var(--text-secondary);
     font-weight: 600;
-    transition: color var(--transition-timing);
 }
 
 .post-list a {
     color: var(--text-primary);
-    transition: color var(--transition-timing);
+    transition: color 0.2s ease;
 }
 
 .post-list a:hover {
@@ -263,13 +272,11 @@ h1, h2, h3 {
 .about-content h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    transition: color var(--transition-timing);
 }
 
 .about-content p {
     color: var(--text-secondary);
     margin-bottom: 1rem;
-    transition: color var(--transition-timing);
 }
 
 /* Project Cards */
@@ -283,17 +290,20 @@ h1, h2, h3 {
 
 .project-card h3 {
     margin-bottom: 0.5rem;
-    transition: color var(--transition-timing);
 }
 
 .project-card p {
     color: var(--text-secondary);
-    transition: color var(--transition-timing);
 }
 
-/* Card background transition */
-.project-card {
-    background-color: rgba(255, 255, 255, 0.8);
-    transition: background-color var(--transition-timing),
-                transform 0.2s ease;
+.dark .project-card {
+    background: transparent;
+}
+
+.dark .project-card:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .sidebar {
+    border-color: rgba(255, 255, 255, 0.1);
 }
