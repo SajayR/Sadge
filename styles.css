@@ -49,6 +49,7 @@ body {
     animation-duration: 0s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
+    overscroll-behavior: none;
 }
 
 body.animation-ready {
