@@ -128,12 +128,14 @@ body.dark {
     --blur-amount: 48px;
     --stop1: 40%;
     --stop2: 70%;
+    
 }
 
 #progressive-blur > div:nth-child(4) {
     --blur-amount: 96px;
     --stop1: 70%;
     --stop2: 80%;
+    
 }
 
 #glow {
@@ -142,7 +144,7 @@ body.dark {
     transition: background 1.0s var(--timing-fn);
     height: 100%;
     width: 100%;
-    opacity: 0.5;
+    opacity: 1.0;
 }
 
 #glow-bounce {
@@ -150,7 +152,7 @@ body.dark {
     position: absolute;
     background: linear-gradient(355deg, var(--bounce-light) 0%, transparent 30%, transparent 100%);
     transition: background 1.0s var(--timing-fn);
-    opacity: 0.5;
+    opacity: 0.1;
     height: 100%;
     width: 100%;
     bottom: 0;
@@ -163,7 +165,7 @@ body.dark {
     right: 0;
     width: 80vw;
     height: 130vh;
-    opacity: 0.07;
+    opacity: 0.15; /* makes the shadows more visible */
     background-blend-mode: darken;
     transform-origin: top right;
     transform-style: preserve-3d;
@@ -174,7 +176,7 @@ body.dark {
 }
 
 .dark .perspective {
-    opacity: 0.3;
+    opacity: 0.9;
     transform: matrix3d(0.8333, 0.0833, 0.0000, 0.0003,
         0.0000, 1.0000, 0.0000, 0.0000,
         0.0000, 0.0000, 1.0000, 0.0000,
