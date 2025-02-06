@@ -589,17 +589,17 @@ a {
 
 .blog-entry {
     position: relative;
-    background: rgba(255, 255, 255, 0.03);
+    background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 4px;
     padding: 1.5rem;
-    transition: background 0.3s ease;
+    transition: transform 0.3s ease;
     font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono",
                 "Liberation Mono", Menlo, Monaco, Consolas, monospace;
 }
 
 .blog-entry:hover {
-    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(8px);
 }
 
 /* Featured Post Styles */
