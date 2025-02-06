@@ -8,6 +8,164 @@ function loadTheme() {
 }
 
 let isAnimating = false;
+let currentPage = window.location.pathname;
+
+// Client-side routing
+function handleNavigation(e) {
+    const link = e.target.closest('a');
+    if (!link || link.getAttribute('target') === '_blank') return;
+    
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('http') || href.startsWith('//')) return;
+    
+    e.preventDefault();
+    navigateTo(href);
+}
+
+async function navigateTo(url) {
+    try {
+        // Save current animation state
+        const animationState = {
+            leaves: document.querySelector('#leaves').style.transform,
+            perspective: document.querySelector('.perspective').style.transform,
+            shutters: document.querySelector('.shutters').style.gap,
+            glow: document.querySelector('#glow').style.background,
+            glowBounce: document.querySelector('#glow-bounce').style.background
+        };
+        localStorage.setItem('animationState', JSON.stringify(animationState));
+        
+        // Fetch new page content
+        const response = await fetch(url);
+        const html = await response.text();
+        
+        // Extract main content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newContent = doc.querySelector('#scroll-container').innerHTML;
+        
+        // Update the content and URL
+        document.querySelector('#scroll-container').innerHTML = newContent;
+        window.history.pushState({}, '', url);
+        currentPage = url;
+        
+        // Restore animation state
+        restoreAnimationState();
+        
+        // Reinitialize page-specific functionality
+        initializePage();
+        
+    } catch (error) {
+        console.error('Navigation failed:', error);
+    }
+}
+
+function restoreAnimationState() {
+    const savedState = localStorage.getItem('animationState');
+    if (!savedState) return;
+    
+    try {
+        const state = JSON.parse(savedState);
+        if (state.leaves) document.querySelector('#leaves').style.transform = state.leaves;
+        if (state.perspective) document.querySelector('.perspective').style.transform = state.perspective;
+        if (state.shutters) document.querySelector('.shutters').style.gap = state.shutters;
+        if (state.glow) document.querySelector('#glow').style.background = state.glow;
+        if (state.glowBounce) document.querySelector('#glow-bounce').style.background = state.glowBounce;
+    } catch (error) {
+        console.error('Failed to restore animation state:', error);
+    }
+}
+
+async function initializeBlogPage() {
+    const blogGrid = document.querySelector('.blog-grid');
+    if (!blogGrid) return;
+
+    const posts = await loadBlogPosts();
+    
+    if (!posts || posts.length === 0) {
+        blogGrid.innerHTML = `
+            <div class="no-posts">
+                <h2>Still writing...</h2>
+                <p>Check back soon for new content!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Clear existing content
+    blogGrid.innerHTML = '';
+    
+    // Add featured post (newest)
+    const featuredPost = createBlogEntry(posts[0], true);
+    blogGrid.appendChild(featuredPost);
+    
+    // Create container for regular posts
+    const regularPosts = document.createElement('div');
+    regularPosts.className = 'regular-posts';
+    
+    // Add remaining posts
+    posts.slice(1).forEach(post => {
+        regularPosts.appendChild(createBlogEntry(post));
+    });
+    
+    blogGrid.appendChild(regularPosts);
+    
+    // Initialize patterns
+    const featuredPattern = featuredPost.querySelector('.pattern-container');
+    if (featuredPattern) {
+        new GeometricPattern(featuredPattern, {
+            width: 300,
+            height: 300,
+            gridSize: 8,
+            lineColor: 'currentColor',
+            lineWidth: 1.5,
+            minPaths: 12,
+            maxPaths: 20,
+            opacity: 1
+        });
+    }
+
+    // Initialize regular post patterns
+    document.querySelectorAll('.regular-posts .pattern-container').forEach(container => {
+        new GeometricPattern(container, {
+            width: 160,
+            height: 160,
+            gridSize: 6,
+            lineColor: 'currentColor',
+            lineWidth: 1.5,
+            minPaths: 8,
+            maxPaths: 15,
+            opacity: 1
+        });
+    });
+}
+
+async function initializePage() {
+    // Re-attach event listeners and initialize page-specific features
+    const themeToggleBtn = document.querySelector('.theme-toggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', toggle);
+        themeToggleBtn.addEventListener('click', updateThemeIcon);
+        updateThemeIcon();
+    }
+    
+    // Initialize blog-specific features if on blog page
+    if (currentPage.includes('blog.html')) {
+        await initializeBlogPage();
+    }
+    
+    // Initialize post-specific features if on post page
+    if (currentPage.includes('post.html')) {
+        await loadBlogPost();
+    }
+    
+    // Highlight active nav item
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === currentPage) {
+            item.classList.add('active');
+        }
+    });
+}
 
 function toggle() {
     if (isAnimating) return;
@@ -261,74 +419,24 @@ function createBlogEntry(post, isFeatured = false) {
         </div>
     `;
     
-    // Add click handler to open the blog post
-    article.addEventListener('click', () => {
-        window.location.href = `/post.html?id=${post.filename}`;
+    // Add click handler to open the blog post using client-side navigation
+    article.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(`/post.html?id=${post.filename}`);
     });
     
     return article;
 }
 
-// Initialize patterns for blog entries
+// Initialize the app
 document.addEventListener('DOMContentLoaded', async () => {
-    const blogGrid = document.querySelector('.blog-grid');
-    const posts = await loadBlogPosts();
+    loadTheme();
+    restoreAnimationState();
+    await initializePage();
     
-    if (!posts || posts.length === 0) {
-        // Show "Still writing" message if no posts
-        blogGrid.innerHTML = `
-            <div class="no-posts">
-                <h2>Still writing...</h2>
-                <p>Check back soon for new content!</p>
-            </div>
-        `;
-        return;
-    }
-    
-    // Clear existing content
-    blogGrid.innerHTML = '';
-    
-    // Add featured post (newest)
-    const featuredPost = createBlogEntry(posts[0], true);
-    blogGrid.appendChild(featuredPost);
-    
-    // Create container for regular posts
-    const regularPosts = document.createElement('div');
-    regularPosts.className = 'regular-posts';
-    
-    // Add remaining posts
-    posts.slice(1).forEach(post => {
-        regularPosts.appendChild(createBlogEntry(post));
-    });
-    
-    blogGrid.appendChild(regularPosts);
-    
-    // Initialize patterns
-    const featuredPattern = featuredPost.querySelector('.pattern-container');
-    if (featuredPattern) {
-        new GeometricPattern(featuredPattern, {
-            width: 300,
-            height: 300,
-            gridSize: 8,
-            lineColor: 'currentColor',
-            lineWidth: 1.5,
-            minPaths: 12,
-            maxPaths: 20,
-            opacity: 1
-        });
-    }
-
-    // Initialize regular post patterns
-    document.querySelectorAll('.regular-posts .pattern-container').forEach(container => {
-        new GeometricPattern(container, {
-            width: 160,
-            height: 160,
-            gridSize: 6,
-            lineColor: 'currentColor',
-            lineWidth: 1.5,
-            minPaths: 8,
-            maxPaths: 15,
-            opacity: 1
-        });
+    // Add navigation event listeners
+    document.addEventListener('click', handleNavigation);
+    window.addEventListener('popstate', () => {
+        navigateTo(window.location.pathname);
     });
 });
