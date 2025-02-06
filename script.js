@@ -200,10 +200,94 @@ class GeometricPattern {
     }
 }
 
+// Blog Post Loading and Parsing
+async function loadBlogPosts() {
+    try {
+        const response = await fetch('/api/blogs');
+        if (!response.ok) {
+            throw new Error('Failed to load blog posts');
+        }
+        
+        const posts = await response.json();
+        return posts;
+        
+    } catch (error) {
+        console.error('Error loading blog posts:', error);
+        return null;
+    }
+}
+
+function extractTag(content, tagName) {
+    const regex = new RegExp(`<${tagName}>(.*?)</${tagName}>`, 's');
+    const match = content.match(regex);
+    return match ? match[1].trim() : '';
+}
+
+function createBlogEntry(post, isFeatured = false) {
+    const article = document.createElement('article');
+    article.className = `blog-entry${isFeatured ? ' featured' : ''}`;
+    article.style.cursor = 'pointer';
+    
+    article.innerHTML = `
+        <div class="pattern-container"></div>
+        <div class="content">
+            <div class="metadata">
+                <span class="date">${post.date}</span>
+                <span class="reading-time">${post.readingTime}</span>
+            </div>
+            <div class="tags">
+                ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <h2 class="blog-title">${post.title}</h2>
+            <p class="blog-subtitle">${post.subtitle}</p>
+            <p class="preview-text">${post.preview}</p>
+        </div>
+    `;
+    
+    // Add click handler to open the blog post
+    article.addEventListener('click', () => {
+        window.location.href = `/post.html?id=${post.filename}`;
+    });
+    
+    return article;
+}
+
 // Initialize patterns for blog entries
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize featured post pattern
-    const featuredPattern = document.querySelector('.blog-entry.featured .pattern-container');
+document.addEventListener('DOMContentLoaded', async () => {
+    const blogGrid = document.querySelector('.blog-grid');
+    const posts = await loadBlogPosts();
+    
+    if (!posts || posts.length === 0) {
+        // Show "Still writing" message if no posts
+        blogGrid.innerHTML = `
+            <div class="no-posts">
+                <h2>Still writing...</h2>
+                <p>Check back soon for new content!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Clear existing content
+    blogGrid.innerHTML = '';
+    
+    // Add featured post (newest)
+    const featuredPost = createBlogEntry(posts[0], true);
+    blogGrid.appendChild(featuredPost);
+    
+    // Create container for regular posts
+    const regularPosts = document.createElement('div');
+    regularPosts.className = 'regular-posts';
+    
+    // Add remaining posts
+    posts.slice(1).forEach(post => {
+        regularPosts.appendChild(createBlogEntry(post));
+    });
+    
+    blogGrid.appendChild(regularPosts);
+    
+    // Initialize patterns
+    const featuredPattern = featuredPost.querySelector('.pattern-container');
     if (featuredPattern) {
         new GeometricPattern(featuredPattern, {
             width: 300,

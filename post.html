@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Sajay</title>
+    <title>Blog Post - Sajay</title>
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <!-- Background Effects Container -->
@@ -84,12 +87,80 @@
             </div>
         </header>
 
-        <!-- Blog Grid -->
-        <main class="blog-grid">
-            <!-- Content will be loaded dynamically -->
+        <!-- Blog Post Content -->
+        <main class="blog-post">
+            <article class="post-content">
+                <!-- Content will be loaded dynamically -->
+            </article>
         </main>
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Configure marked for code highlighting
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    return hljs.highlight(code, { language: lang }).value;
+                }
+                return code;
+            }
+        });
+
+        // Load and render the blog post
+        async function loadBlogPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+            
+            if (!postId) {
+                window.location.href = '/blog.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/blog/${postId}`);
+                if (!response.ok) throw new Error('Post not found');
+                
+                const post = await response.json();
+                document.title = `${post.title} - Sajay`;
+                
+                const content = document.querySelector('.post-content');
+                content.innerHTML = `
+                    <header class="post-header">
+                        <div class="metadata">
+                            <span class="date">${post.date}</span>
+                            <span class="reading-time">${post.readingTime}</span>
+                        </div>
+                        <div class="tags">
+                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <h1 class="post-title">${post.title}</h1>
+                        <p class="post-subtitle">${post.subtitle}</p>
+                    </header>
+                    <div class="post-body">
+                        ${marked.parse(post.content)}
+                    </div>
+                `;
+
+                // Re-run syntax highlighting after content is loaded
+                hljs.highlightAll();
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                const content = document.querySelector('.post-content');
+                content.innerHTML = `
+                    <div class="error">
+                        <h2>Post not found</h2>
+                        <p>The requested blog post could not be found.</p>
+                        <a href="/blog.html">Return to blog list</a>
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadBlogPost);
+    </script>
 </body>
 </html> 

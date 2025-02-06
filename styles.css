@@ -760,3 +760,154 @@ a {
         padding: 1rem;
     }
 }
+
+/* Blog Post Page Styles */
+.blog-post {
+    width: 100%;
+    max-width: 800px;
+    margin: 80px auto 0;
+    padding: 2rem;
+}
+
+.post-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.post-header {
+    margin-bottom: 2rem;
+}
+
+.post-title {
+    font-size: var(--text-4xl);
+    margin: 1rem 0;
+    color: var(--text-primary);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.post-subtitle {
+    font-size: var(--text-xl);
+    color: var(--text-secondary);
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+.post-body {
+    font-size: var(--text-lg);
+    line-height: 1.8;
+    color: var(--text-primary);
+}
+
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4,
+.post-body h5,
+.post-body h6 {
+    margin: 2rem 0 1rem;
+    color: var(--text-primary);
+}
+
+.post-body p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.post-body pre {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    overflow-x: auto;
+}
+
+.post-body code {
+    font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono",
+                "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+}
+
+.post-body a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.post-body a:hover {
+    border-color: var(--accent);
+}
+
+.post-body ul,
+.post-body ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+    color: var(--text-secondary);
+}
+
+.post-body li {
+    margin-bottom: 0.5rem;
+}
+
+.post-body blockquote {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.post-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+}
+
+.error {
+    text-align: center;
+    padding: 2rem;
+}
+
+.error h2 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.error a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.error a:hover {
+    border-color: var(--accent);
+}
+
+/* Responsive Design for Blog Post */
+@media (max-width: 768px) {
+    .blog-post {
+        padding: 1rem;
+    }
+
+    .post-content {
+        padding: 1.5rem;
+    }
+
+    .post-title {
+        font-size: var(--text-3xl);
+    }
+
+    .post-subtitle {
+        font-size: var(--text-lg);
+    }
+
+    .post-body {
+        font-size: var(--text-base);
+    }
+}
