@@ -287,6 +287,41 @@ h1, h2, h3 {
     margin-bottom: 1rem;
 }
 
+.description {
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.description p {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--text-primary);
+}
+
+.social-links svg {
+    width: 20px;
+    height: 20px;
+}
+
 .dark .sidebar {
     border-color: rgba(255, 255, 255, 0.1);
 }
