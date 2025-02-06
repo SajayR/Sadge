@@ -286,31 +286,6 @@ h1, h2, h3 {
     margin-bottom: 1rem;
 }
 
-/* Project Cards */
-.project-card {
-    transition: transform 0.2s ease;
-}
-
-.project-card:hover {
-    transform: translateY(-4px);
-}
-
-.project-card h3 {
-    margin-bottom: 0.5rem;
-}
-
-.project-card p {
-    color: var(--text-secondary);
-}
-
-.dark .project-card {
-    background: transparent;
-}
-
-.dark .project-card:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
 .dark .sidebar {
     border-color: rgba(255, 255, 255, 0.1);
 }
