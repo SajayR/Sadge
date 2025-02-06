@@ -141,7 +141,7 @@
                         <p class="post-subtitle">${post.subtitle}</p>
                     </header>
                     <div class="post-body">
-                        ${marked.parse(post.content)}
+                        ${marked.parse(post.content.split('\n').slice(8).join('\n'))}
                     </div>
                 `;
 
