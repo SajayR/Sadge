@@ -84,9 +84,10 @@ body {
 /* Main Content refinements */
 .main-content {
     flex: 1;
-    margin-left: 300px;
-    padding: 4rem 6rem; /* Increased padding */
-    max-width: 1200px; /* Maximum width for better readability */
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    width: 100%;
 }
 
 .about-section {
@@ -94,19 +95,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: left; /* Changed to left alignment */
+    text-align: center;
     padding: 2rem;
+    width: 100%;
 }
 
 .about-content {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .about-content h2 {
     font-size: 3.5rem;
     margin-bottom: 2rem;
     color: rgba(255, 255, 255, 0.95);
+    text-align: center;
 }
 
 .about-content p {
@@ -114,6 +118,8 @@ body {
     line-height: 1.6;
     opacity: 0.9;
     color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 /* Projects Section refinements */
