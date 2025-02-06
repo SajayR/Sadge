@@ -50,17 +50,22 @@ body {
     animation-fill-mode: forwards;
     animation-timing-function: linear;
     overscroll-behavior: none;
+    will-change: background-color;
 }
 
 body.animation-ready {
     animation-play-state: running;
     animation-duration: 1s;
     animation-name: sunrise;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.animation-ready.dark {
     animation-duration: 1.7s;
     animation-name: sunset;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.dark {
@@ -111,6 +116,7 @@ body.dark {
     inset: 0;
     backdrop-filter: blur(var(--blur-amount));
     mask-image: linear-gradient(252deg, transparent, transparent var(--stop1), black var(--stop2), black);
+    will-change: backdrop-filter, mask-image;
 }
 
 #progressive-blur > div:nth-child(1) {
@@ -146,6 +152,7 @@ body.dark {
     height: 100%;
     width: 100%;
     opacity: 1.0;
+    will-change: background;
 }
 
 #glow-bounce {
@@ -157,6 +164,7 @@ body.dark {
     height: 100%;
     width: 100%;
     bottom: 0;
+    will-change: background;
 }
 
 .perspective {
@@ -174,6 +182,7 @@ body.dark {
         0.0000, 1.0000, 0.0000, 0.0000,
         0.0000, 0.0000, 1.0000, 0.0000,
         0.0000, 0.0000, 0.0000, 1.0000);
+    will-change: transform, opacity;
 }
 
 .dark .perspective {
@@ -195,6 +204,7 @@ body.dark {
     filter: url(#wind);
     animation: billow 8s ease-in-out infinite;
     background-image: url("./leaves.png");
+    will-change: transform;
 }
 
 #blinds {
@@ -277,6 +287,15 @@ h1, h2, h3 {
 }
 
 /* About Section */
+.about-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
 .about-content h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -333,12 +352,13 @@ h1, h2, h3 {
     background: transparent;
     z-index: 10;
     padding: 0 1rem;
+    height: 80px;
 }
 
 .header-content {
     width: min(90%, 1200px);
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: 1rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -413,4 +433,97 @@ p, li, a {
 a {
     color: inherit;
     text-decoration: none;
+}
+
+/* Timeline Section */
+.timeline-section {
+    min-height: auto;
+    padding: 4rem 0;
+    position: relative;
+    margin-top: 2rem;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--text-secondary);
+    opacity: 0.2;
+}
+
+.timeline-entry {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 100px;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    border: 1px solid var(--text-secondary);
+    opacity: 0.8;
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.timeline-content:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.timeline-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+.timeline-content p {
+    margin: 0 0 1rem 0;
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+    opacity: 0.8;
+}
+
+.timeline-content .date {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.timeline-entry.project .timeline-icon {
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-entry.blog .timeline-icon {
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
 }

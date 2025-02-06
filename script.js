@@ -1,5 +1,19 @@
+let isAnimating = false;
+
 function toggle() {
+    if (isAnimating) return;
+    
+    isAnimating = true;
     document.body.classList.add('animation-ready');
+    
+    // Instead of a fixed timeout, listen for the actual animation end event.
+    const animationEndHandler = (e) => {
+        // Remove listener after handling the first animation end.
+        document.body.removeEventListener('animationend', animationEndHandler);
+        isAnimating = false;
+    };
+    document.body.addEventListener('animationend', animationEndHandler);
+    
     document.body.classList.toggle('dark');
 }
 
