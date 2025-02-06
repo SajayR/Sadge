@@ -84,8 +84,8 @@ async function initializeBlogPage() {
     if (!posts || posts.length === 0) {
         blogGrid.innerHTML = `
             <div class="no-posts">
-                <h2>Still writing...</h2>
-                <p>Check back soon for new content!</p>
+                <h2 style="text-align: center">Soon™</h2>
+                
             </div>
         `;
         return;

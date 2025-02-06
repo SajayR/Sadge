@@ -415,6 +415,8 @@ h1, h2, h3 {
 .logo {
     font-family: inherit;
     font-size: var(--text-base);
+    color: var(--text-primary);
+    text-decoration: none;
 }
 
 .nav {
