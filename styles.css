@@ -35,12 +35,16 @@
 
 body {
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: 1.5;
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
     background-color: var(--light);
+    font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono",
+        "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
 
     animation-duration: 0s;
     animation-fill-mode: forwards;
@@ -247,10 +251,11 @@ body.dark {
 /* Typography */
 h1, h2, h3 {
     color: var(--text-primary);
+    line-height: 1.2;
 }
 
 .site-title {
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: -0.5px;
 }
 
@@ -306,4 +311,89 @@ h1, h2, h3 {
 
 .dark .sidebar {
     border-color: rgba(255, 255, 255, 0.1);
+}
+
+.header {
+    width: 100%;
+    padding: 2rem 0;
+    margin-bottom: 4rem;
+    padding-left: 4rem;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono",
+        "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 17px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 400;
+    margin-left: 2rem;
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding-left: 2ch;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 13px;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+p, li, a {
+    font-size: 15px;
+}
+
+.blog-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+.project-title {
+    font-size: 1.125rem;
+    line-height: 1.25;
+}
+
+.date {
+    font-size: 0.875rem;
+}
+
+.meta {
+    font-size: 0.75rem;
 }
