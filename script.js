@@ -68,7 +68,7 @@ class GeometricPattern {
             width: options.width || 100,
             height: options.height || 100,
             gridSize: options.gridSize || 10,
-            lineColor: options.lineColor || 'currentColor',
+            lineColor: 'currentColor',
             lineWidth: options.lineWidth || 1,
             minPaths: options.minPaths || 8,
             maxPaths: options.maxPaths || 15,
@@ -87,6 +87,7 @@ class GeometricPattern {
         this.svg.setAttribute('width', this.options.width);
         this.svg.setAttribute('height', this.options.height);
         this.svg.style.opacity = this.options.opacity;
+        this.svg.classList.add('geometric-pattern');
         
         this.generatePoints();
         this.generatePaths();
