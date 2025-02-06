@@ -1,3 +1,12 @@
+// Theme persistence
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+    }
+    updateThemeIcon();
+}
+
 let isAnimating = false;
 
 function toggle() {
@@ -5,6 +14,10 @@ function toggle() {
 
     isAnimating = true;
     document.body.classList.add('animation-ready');
+    
+    // Save theme preference to localStorage
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
     
     // Instead of a fixed timeout, listen for the actual animation end event.
     const animationEndHandler = (e) => {
@@ -19,6 +32,9 @@ function toggle() {
 // Theme toggle button functionality
 const themeToggleBtn = document.querySelector('.theme-toggle');
 themeToggleBtn.addEventListener('click', toggle);
+
+// Load saved theme when page loads
+document.addEventListener('DOMContentLoaded', loadTheme);
 
 // Update button icon based on theme
 function updateThemeIcon() {
