@@ -1,3 +1,4 @@
+
 :root {
     --text-primary: #1a1a1a;
     --text-secondary: #4a4a4a;
@@ -33,24 +34,65 @@
     --text-4xl: 2.25rem;
 }
 
-body {
-    color: var(--text-primary);
-    line-height: 1.5;
+/* 
+   1) Prevent body from scrolling; #scroll-container will handle it.
+*/
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    width: 100%;
-    background-color: var(--light);
+    overflow: hidden; /* no scroll bars on body */
     font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono",
-        "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+                 "Liberation Mono", Menlo, Monaco, Consolas, monospace;
     font-size: 13px;
     -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
 
     animation-duration: 0s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
     overscroll-behavior: none;
     will-change: background-color;
+}
+
+/* 
+   2) This container now scrolls the main site content. 
+*/
+#scroll-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 3) The background effects are fixed behind everything */
+#background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden; /* keep large child elements clipped */
+}
+
+/* 
+   Original body-based animations 
+   switched to #dappled-light within #background-effects:
+*/
+#dappled-light {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+/* Sunrise/Sunset background transitions */
+body {
+    background-color: var(--light);
 }
 
 body.animation-ready {
@@ -78,7 +120,6 @@ body.dark {
     --background: #0f131c;
 }
 
-/* Animation Keyframes */
 @keyframes sunrise {
     0% { background-color: var(--night); }
     10% { background-color: var(--dawn); }
@@ -94,15 +135,19 @@ body.dark {
     100% { background-color: var(--night); }
 }
 
-/* Dappled Light Effect */
-#dappled-light {
-    pointer-events: none;
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    z-index: -1;
+/* Force GPU acceleration on large animated elements */
+#leaves,
+#glow,
+#glow-bounce,
+.perspective,
+.shutter,
+#progressive-blur > div {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
+/* Dappled Light Effect */
 #progressive-blur {
     position: absolute;
     height: 100%;
@@ -115,7 +160,8 @@ body.dark {
     width: 100%;
     inset: 0;
     backdrop-filter: blur(var(--blur-amount));
-    mask-image: linear-gradient(252deg, transparent, transparent var(--stop1), black var(--stop2), black);
+    mask-image: linear-gradient(252deg, transparent, 
+                  transparent var(--stop1), black var(--stop2), black);
     will-change: backdrop-filter, mask-image;
 }
 
@@ -124,25 +170,20 @@ body.dark {
     --stop1: 0%;
     --stop2: 0%;
 }
-
 #progressive-blur > div:nth-child(2) {
     --blur-amount: 12px;
     --stop1: 40%;
     --stop2: 80%;
 }
-
 #progressive-blur > div:nth-child(3) {
     --blur-amount: 48px;
     --stop1: 40%;
     --stop2: 70%;
-    
 }
-
 #progressive-blur > div:nth-child(4) {
     --blur-amount: 96px;
     --stop1: 70%;
     --stop2: 80%;
-    
 }
 
 #glow {
@@ -174,23 +215,22 @@ body.dark {
     right: 0;
     width: 80vw;
     height: 130vh;
-    opacity: 0.15; /* makes the shadows more visible */
+    opacity: 0.15;
     background-blend-mode: darken;
     transform-origin: top right;
     transform-style: preserve-3d;
     transform: matrix3d(0.7500, -0.0625, 0.0000, 0.0008,
-        0.0000, 1.0000, 0.0000, 0.0000,
-        0.0000, 0.0000, 1.0000, 0.0000,
-        0.0000, 0.0000, 0.0000, 1.0000);
+                        0.0000, 1.0000, 0.0000, 0.0000,
+                        0.0000, 0.0000, 1.0000, 0.0000,
+                        0.0000, 0.0000, 0.0000, 1.0000);
     will-change: transform, opacity;
 }
-
 .dark .perspective {
     opacity: 0.9;
     transform: matrix3d(0.8333, 0.0833, 0.0000, 0.0003,
-        0.0000, 1.0000, 0.0000, 0.0000,
-        0.0000, 0.0000, 1.0000, 0.0000,
-        0.0000, 0.0000, 0.0000, 1.0000);
+                        0.0000, 1.0000, 0.0000, 0.0000,
+                        0.0000, 0.0000, 1.0000, 0.0000,
+                        0.0000, 0.0000, 0.0000, 1.0000);
 }
 
 #leaves {
@@ -248,7 +288,6 @@ body.dark {
     height: 40px;
     transition: height 1.0s var(--timing-fn);
 }
-
 .dark .shutter {
     height: 80px;
 }
