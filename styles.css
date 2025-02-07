@@ -158,31 +158,9 @@ body.dark {
     height: 100%;
     width: 100%;
     inset: 0;
-    backdrop-filter: blur(var(--blur-amount));
-    mask-image: linear-gradient(252deg, transparent, 
-                  transparent var(--stop1), black var(--stop2), black);
+    backdrop-filter: blur(12px);
+    mask-image: linear-gradient(252deg, transparent 0%, black 40%);
     will-change: backdrop-filter, mask-image;
-}
-
-#progressive-blur > div:nth-child(1) {
-    --blur-amount: 6px;
-    --stop1: 0%;
-    --stop2: 0%;
-}
-#progressive-blur > div:nth-child(2) {
-    --blur-amount: 12px;
-    --stop1: 40%;
-    --stop2: 80%;
-}
-#progressive-blur > div:nth-child(3) {
-    --blur-amount: 48px;
-    --stop1: 40%;
-    --stop2: 70%;
-}
-#progressive-blur > div:nth-child(4) {
-    --blur-amount: 96px;
-    --stop1: 70%;
-    --stop2: 80%;
 }
 
 #glow {
