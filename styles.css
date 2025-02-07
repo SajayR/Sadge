@@ -917,3 +917,206 @@ a {
 .dark .geometric-pattern {
     color: rgba(255, 255, 255, 0.7);
 }
+
+/* Projects Page Styles */
+.projects-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 2rem;
+}
+
+/* Current Research Section */
+.current-research {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.current-research:hover {
+    transform: translateY(-4px);
+}
+
+.research-content h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+}
+
+.research-description {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.research-highlights h3,
+.research-links h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.research-highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.research-highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+}
+
+.research-highlights li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.research-link {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.research-link:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateX(4px);
+}
+
+.link-title {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.link-description {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* Section Divider */
+.section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--text-secondary),
+        transparent
+    );
+    opacity: 0.2;
+    margin: 3rem 0;
+}
+
+/* Other Projects Section */
+.other-projects h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.project-card {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+}
+
+.project-content h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.project-content p {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.project-links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-links a:hover {
+    color: var(--text-primary);
+}
+
+.project-links svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive Design for Projects Page */
+@media (max-width: 1024px) {
+    .projects-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .current-research {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-container {
+        padding: 1rem;
+    }
+}

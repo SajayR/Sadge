@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Sajay</title>
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Effects Container -->
+    <div id="background-effects">
+        <div id="dappled-light">
+            <div id="glow"></div>
+            <div id="glow-bounce"></div>
+            <div class="perspective">
+                <div id="leaves">
+                    <svg style="width: 0; height: 0; position: absolute;">
+                        <defs>
+                            <filter id="wind" x="-20%" y="-20%" width="140%" height="140%">
+                                <feTurbulence type="fractalNoise" numOctaves="2" seed="1">
+                                    <animate attributeName="baseFrequency" dur="16s" keyTimes="0;0.33;0.66;1"
+                                        values="0.005 0.003;0.01 0.009;0.008 0.004;0.005 0.003" repeatCount="indefinite" />
+                                </feTurbulence>
+                                <feDisplacementMap in="SourceGraphic">
+                                    <animate attributeName="scale" dur="20s" keyTimes="0;0.25;0.5;0.75;1"
+                                        values="45;55;75;55;45" repeatCount="indefinite" />
+                                </feDisplacementMap>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+                <div id="blinds">
+                    <div class="shutters">
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                        <div class="shutter"></div>
+                    </div>
+                    <div class="vertical">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="progressive-blur">
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Scrollable Container -->
+    <div id="scroll-container">
+        <header class="header">
+            <div class="header-content">
+                <a href="/" class="logo">Sajay</a>
+                <nav class="nav">
+                    <a href="/" class="nav-item">Home</a>
+                    <a href="/blog.html" class="nav-item">Blogs</a>
+                    <a href="/projects" class="nav-item active">Cool stuff</a>
+                    <button class="theme-toggle">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2
+                                     M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Projects Content -->
+        <main class="projects-container">
+            <!-- Current Research Section -->
+            <section class="current-research">
+                <div class="research-content">
+                    <h2>Current Research</h2>
+                    <p class="research-description">
+                        Working on unsupervised computer vision and exploring novel architectures for self-supervised learning.
+                        Currently focused on understanding how neural networks learn and develop representations without explicit labels.
+                    </p>
+                    <div class="research-highlights">
+                        <h3>Key Directions</h3>
+                        <ul>
+                            <li>Self-supervised representation learning in vision</li>
+                            <li>Neural architecture search for unsupervised learning</li>
+                            <li>Interpretability in deep learning models</li>
+                        </ul>
+                    </div>
+                    <div class="research-links">
+                        <h3>Related Work</h3>
+                        <div class="links-grid">
+                            <a href="#" class="research-link">
+                                <span class="link-title">Paper Title 1</span>
+                                <span class="link-description">Brief description of the paper and its significance</span>
+                            </a>
+                            <a href="#" class="research-link">
+                                <span class="link-title">Paper Title 2</span>
+                                <span class="link-description">Brief description of the paper and its significance</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Other Projects Section -->
+            <section class="other-projects">
+                <h2>Other Projects</h2>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Project Title 1</h3>
+                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <div class="project-links">
+                                <a href="#" aria-label="View Project on GitHub">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Project Title 2</h3>
+                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <div class="project-links">
+                                <a href="#" aria-label="View Project on GitHub">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Project Title 3</h3>
+                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <div class="project-links">
+                                <a href="#" aria-label="View Project on GitHub">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Project Title 4</h3>
+                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <div class="project-links">
+                                <a href="#" aria-label="View Project on GitHub">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
