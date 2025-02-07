@@ -68,7 +68,7 @@
                 <nav class="nav">
                     <a href="/" class="nav-item">Home</a>
                     <a href="/blog.html" class="nav-item">Blogs</a>
-                    <a href="/projects" class="nav-item active">Cool stuff</a>
+                    <a class="nav-item active">Cool stuff</a>
                     <button class="theme-toggle">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -86,29 +86,30 @@
             <!-- Current Research Section -->
             <section class="current-research">
                 <div class="research-content">
-                    <h2>Current Research</h2>
+                    <h2>Active Research</h2>
+                    <h3>Triad</h3>
                     <p class="research-description">
-                        Working on unsupervised computer vision and exploring novel architectures for self-supervised learning.
-                        Currently focused on understanding how neural networks learn and develop representations without explicit labels.
+                    <b>Unsupervised dense multimodal feature grounding of audio-visual-text information alignment.</b><br>
+                        While approaches such as ImageBind, CLIP, show extremely promising results in finding associations between modalities (answering if an image and text are related or not), they struggle to localize the exact features that align with each other. My current research focuses on learning fine-grained, localized relationships rather than just global alignment.
                     </p>
                     <div class="research-highlights">
                         <h3>Key Directions</h3>
                         <ul>
-                            <li>Self-supervised representation learning in vision</li>
-                            <li>Neural architecture search for unsupervised learning</li>
-                            <li>Interpretability in deep learning models</li>
+                            <li>Completely unsupervised multimodal feature localization</li>
+                            <li>Features of semantically similar objects align naturally between modalities</li>
+                            <li>Promptable information retrieval for multimodal tasks</li>
                         </ul>
                     </div>
                     <div class="research-links">
                         <h3>Related Work</h3>
                         <div class="links-grid">
-                            <a href="#" class="research-link">
-                                <span class="link-title">Paper Title 1</span>
-                                <span class="link-description">Brief description of the paper and its significance</span>
+                            <a href="https://arxiv.org/abs/2406.05629" class="research-link">
+                                <span class="link-title">DenseAV: Separating the "Chirp" from the "Chat"</span>
+                                <span class="link-description">Establishes SOTA dense correspondence between audio and visual features</span>
                             </a>
-                            <a href="#" class="research-link">
-                                <span class="link-title">Paper Title 2</span>
-                                <span class="link-description">Brief description of the paper and its significance</span>
+                            <a href="https://arxiv.org/abs/2305.05665" class="research-link">
+                                <span class="link-title">ImageBind</span>
+                                <span class="link-description">Global alignment between 6 modalities-image, audio, text, depth, thermal, and radar</span>
                             </a>
                         </div>
                     </div>
@@ -123,10 +124,10 @@
                 <div class="projects-grid">
                     <article class="project-card">
                         <div class="project-content">
-                            <h3>Project Title 1</h3>
-                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <h3>LetMeSee</h3>
+                            <p>Learned content-aware patch truncation for ViT models for improved efficiency</p>
                             <div class="project-links">
-                                <a href="#" aria-label="View Project on GitHub">
+                                <a href="https://github.com/SajayR/LetMeSee" aria-label="View Project on GitHub">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                               d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>
@@ -137,10 +138,10 @@
                     </article>
                     <article class="project-card">
                         <div class="project-content">
-                            <h3>Project Title 2</h3>
-                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <h3>State-space model for rider's intent prediction</h3>
+                            <p>Published as a part of RIP competition paper at ICPR 2024, a Mamba2-based model for predicting rider's intent. Winning method for the competition hosted by IITH for the first prize of $1000. ;) </p>
                             <div class="project-links">
-                                <a href="#" aria-label="View Project on GitHub">
+                                <a href="https://github.com/SajayR/ICPR-RIP" aria-label="View Project on GitHub">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                               d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>
@@ -151,10 +152,10 @@
                     </article>
                     <article class="project-card">
                         <div class="project-content">
-                            <h3>Project Title 3</h3>
-                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <h3>FudgeGrad</h3>
+                            <p>An autograd engine inspired by PyTorch from scratch. (In progress)</p>
                             <div class="project-links">
-                                <a href="#" aria-label="View Project on GitHub">
+                                <a href="https://github.com/SajayR/FudgeGrad" aria-label="View Project on GitHub">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                               d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>
@@ -165,10 +166,10 @@
                     </article>
                     <article class="project-card">
                         <div class="project-content">
-                            <h3>Project Title 4</h3>
-                            <p>Description of the project and its key features. What problems it solves and what technologies were used.</p>
+                            <h3>HTT: Hearing through time</h3>
+                            <p>An extension to traditional audio localization methods that depend on individual visual frames to localize sound sources in videos by directly training on entire sequences of frames with a TimesFormer backbone.</p>
                             <div class="project-links">
-                                <a href="#" aria-label="View Project on GitHub">
+                                <a href="https://github.com/SajayR/HTT" aria-label="View Project on GitHub">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                               d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z"/>

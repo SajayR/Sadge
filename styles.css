@@ -929,15 +929,15 @@ a {
 /* Current Research Section */
 .current-research {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 2rem;
     transition: transform 0.3s ease;
 }
 
-.current-research:hover {
-    transform: translateY(-4px);
+.dark .current-research {
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .research-content h2 {
@@ -995,9 +995,13 @@ a {
     flex-direction: column;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     transition: all 0.3s ease;
+}
+
+.dark .research-link {
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .research-link:hover {
@@ -1047,10 +1051,14 @@ a {
 
 .project-card {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     padding: 1.5rem;
     transition: all 0.3s ease;
+}
+
+.dark .project-card {
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .project-card:hover {
