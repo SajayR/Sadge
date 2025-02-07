@@ -34,25 +34,164 @@ async function navigateTo(url) {
         };
         localStorage.setItem('animationState', JSON.stringify(animationState));
         
-        // Fetch new page content
-        const response = await fetch(url);
-        const html = await response.text();
-        
-        // Extract main content
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const newContent = doc.querySelector('#scroll-container').innerHTML;
-        
-        // Update the content and URL
-        document.querySelector('#scroll-container').innerHTML = newContent;
+        // Update URL first
         window.history.pushState({}, '', url);
         currentPage = url;
+
+        // For blog posts, we need to handle the content loading differently
+        if (url.includes('post.html')) {
+            // Ensure required libraries are loaded
+            if (!window.marked || !window.hljs) {
+                // Load marked.js if not already loaded
+                if (!window.marked) {
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+                        script.onload = resolve;
+                        script.onerror = reject;
+                        document.head.appendChild(script);
+                    });
+                }
+                
+                // Load highlight.js if not already loaded
+                if (!window.hljs) {
+                    await Promise.all([
+                        new Promise((resolve, reject) => {
+                            const script = document.createElement('script');
+                            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+                            script.onload = resolve;
+                            script.onerror = reject;
+                            document.head.appendChild(script);
+                        }),
+                        new Promise((resolve, reject) => {
+                            const link = document.createElement('link');
+                            link.rel = 'stylesheet';
+                            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
+                            link.onload = resolve;
+                            link.onerror = reject;
+                            document.head.appendChild(link);
+                        })
+                    ]);
+                }
+
+                // Configure marked for code highlighting
+                marked.setOptions({
+                    highlight: function(code, lang) {
+                        if (lang && hljs.getLanguage(lang)) {
+                            return hljs.highlight(code, { language: lang }).value;
+                        }
+                        return code;
+                    }
+                });
+            }
+
+            const urlParams = new URLSearchParams(new URL(url, window.location.origin).search);
+            const postId = urlParams.get('id');
+            
+            if (!postId) {
+                navigateTo('/blog.html');
+                return;
+            }
+
+            try {
+                // Fetch the blog post data first
+                const response = await fetch(`/api/blog/${postId}`);
+                if (!response.ok) throw new Error('Post not found');
+                const post = await response.json();
+
+                // Update the page structure with the post content
+                document.querySelector('#scroll-container').innerHTML = `
+                    <header class="header">
+                        <div class="header-content">
+                            <a href="/" class="logo">Sajay</a>
+                            <nav class="nav">
+                                <a href="/" class="nav-item">Home</a>
+                                <a href="/blog.html" class="nav-item">Blogs</a>
+                                <a href="/projects" class="nav-item">Cool stuff</a>
+                                <button class="theme-toggle">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2
+                                                 M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                                    </svg>
+                                </button>
+                            </nav>
+                        </div>
+                    </header>
+                    <main class="blog-post">
+                        <article class="post-content">
+                            <header class="post-header">
+                                <div class="metadata">
+                                    <span class="date">${post.date}</span>
+                                    <span class="reading-time">${post.readingTime}</span>
+                                </div>
+                                <div class="tags">
+                                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                </div>
+                                <h1 class="post-title">${post.title}</h1>
+                                <p class="post-subtitle">${post.subtitle}</p>
+                            </header>
+                            <div class="post-body">
+                                ${marked.parse(post.content.split('\n').slice(8).join('\n'))}
+                            </div>
+                        </article>
+                    </main>
+                `;
+
+                // Re-run syntax highlighting after content is loaded
+                hljs.highlightAll();
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                document.querySelector('#scroll-container').innerHTML = `
+                    <header class="header">
+                        <div class="header-content">
+                            <a href="/" class="logo">Sajay</a>
+                            <nav class="nav">
+                                <a href="/" class="nav-item">Home</a>
+                                <a href="/blog.html" class="nav-item">Blogs</a>
+                                <a href="/projects" class="nav-item">Cool stuff</a>
+                                <button class="theme-toggle">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2
+                                                 M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                                    </svg>
+                                </button>
+                            </nav>
+                        </div>
+                    </header>
+                    <main class="blog-post">
+                        <article class="post-content">
+                            <div class="error">
+                                <h2>Post not found</h2>
+                                <p>The requested blog post could not be found.</p>
+                                <a href="#" onclick="event.preventDefault(); navigateTo('/blog.html');">Return to blog list</a>
+                            </div>
+                        </article>
+                    </main>
+                `;
+            }
+        } else {
+            // For other pages, fetch the full content
+            const response = await fetch(url);
+            const html = await response.text();
+            
+            // Extract main content
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newContent = doc.querySelector('#scroll-container').innerHTML;
+            
+            // Update the content
+            document.querySelector('#scroll-container').innerHTML = newContent;
+        }
         
         // Restore animation state
         restoreAnimationState();
         
         // Reinitialize page-specific functionality
-        initializePage();
+        await initializePage();
         
     } catch (error) {
         console.error('Navigation failed:', error);
@@ -139,6 +278,64 @@ async function initializeBlogPage() {
     });
 }
 
+async function loadBlogPost() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+    
+    if (!postId) {
+        navigateTo('/blog.html');
+        return;
+    }
+
+    try {
+        // Use absolute path for API request
+        const apiUrl = window.location.origin + `/api/blog/${postId}`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('Post not found');
+        
+        const post = await response.json();
+        document.title = `${post.title} - Sajay`;
+        
+        const content = document.querySelector('.post-content');
+        if (!content) {
+            console.error('Post content container not found');
+            return;
+        }
+
+        content.innerHTML = `
+            <header class="post-header">
+                <div class="metadata">
+                    <span class="date">${post.date}</span>
+                    <span class="reading-time">${post.readingTime}</span>
+                </div>
+                <div class="tags">
+                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                <h1 class="post-title">${post.title}</h1>
+                <p class="post-subtitle">${post.subtitle}</p>
+            </header>
+            <div class="post-body">
+                ${marked.parse(post.content.split('\n').slice(8).join('\n'))}
+            </div>
+        `;
+
+        // Re-run syntax highlighting after content is loaded
+        hljs.highlightAll();
+    } catch (error) {
+        console.error('Error loading blog post:', error);
+        const content = document.querySelector('.post-content');
+        if (content) {
+            content.innerHTML = `
+                <div class="error">
+                    <h2>Post not found</h2>
+                    <p>The requested blog post could not be found.</p>
+                    <a href="#" onclick="event.preventDefault(); navigateTo('/blog.html');">Return to blog list</a>
+                </div>
+            `;
+        }
+    }
+}
+
 async function initializePage() {
     // Re-attach event listeners and initialize page-specific features
     const themeToggleBtn = document.querySelector('.theme-toggle');
@@ -149,7 +346,7 @@ async function initializePage() {
     }
     
     // Initialize blog-specific features if on blog page
-    if (currentPage.includes('blog.html')) {
+    if (currentPage.includes('blog.html') && !currentPage.includes('post.html')) {
         await initializeBlogPage();
     }
     
@@ -378,7 +575,8 @@ class GeometricPattern {
 // Blog Post Loading and Parsing
 async function loadBlogPosts() {
     try {
-        const response = await fetch('/api/blogs');
+        const apiUrl = window.location.origin + '/api/blogs';
+        const response = await fetch(apiUrl);
         if (!response.ok) {
             throw new Error('Failed to load blog posts');
         }
