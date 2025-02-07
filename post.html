@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/mermaid.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
@@ -97,9 +99,15 @@
         // Initialize syntax highlighting
         hljs.highlightAll();
         
-        // Configure marked for code highlighting
+        // Initialize mermaid
+        mermaid.initialize({ startOnLoad: true });
+        
+        // Configure marked for code highlighting and mermaid
         marked.setOptions({
             highlight: function(code, lang) {
+                if (lang === 'mermaid') {
+                    return `<div class="mermaid">${code}</div>`;
+                }
                 if (lang && hljs.getLanguage(lang)) {
                     return hljs.highlight(code, { language: lang }).value;
                 }
@@ -144,6 +152,9 @@
 
                 // Re-run syntax highlighting after content is loaded
                 hljs.highlightAll();
+                
+                // Re-initialize mermaid after content is loaded
+                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
             } catch (error) {
                 console.error('Error loading blog post:', error);
                 const content = document.querySelector('.post-content');

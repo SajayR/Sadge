@@ -227,7 +227,7 @@ body.dark {
 #blinds {
     position: relative;
     width: 100%;
-    filter: blur(2px);
+    
 }
 
 #blinds .shutter,
@@ -802,6 +802,20 @@ a {
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.2);
     overflow-x: auto;
+}
+
+/* Mermaid diagram styles */
+.post-body .mermaid {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.dark .post-body .mermaid {
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .post-body code {
