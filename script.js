@@ -1,7 +1,9 @@
 // Theme persistence
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    if (savedTheme === 'light') {
+        document.body.classList.remove('dark');
+    } else {
         document.body.classList.add('dark');
     }
     updateThemeIcon();
